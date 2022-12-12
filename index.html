@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Shopping Cart</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <div class="heading">
+      <nav class="navbar">
+        <div class="nav-icon">
+          <i class="fa-solid fa-bars fa-lg"></i>
+        </div>
+        <h1>Mahsa Shopping</h1>
+        <div class="cart-btn">
+          <div class="nav-icon">
+            <i class="fa-solid fa-cart-shopping fa-lg"></i>
+          </div>
+          <span class="cart-items">0</span>
+        </div>
+      </nav>
+    </div>
+    <!-- Navigation -->
+
+    <!-- Products -->
+    <section class="products">
+      <div class="section-title">
+        <h1 class="title">Our Products</h1>
+      </div>
+      <div class="products-center">
+        <!-- Single Product -->
+        <!-- <div class="product">
+          <div class="image-container">
+            <img src="/images/pic1.jpg" alt="" class="product-image" />
+          </div>
+          <div class="product-name">laptop Asus 4301</div>
+          <div class="product-price-addbtn">
+            <div class="product-price">
+              <div class="price-title">Price</div>
+              <div class="price-number">500$</div>
+            </div>
+            <button class="btn product-add-btn">
+              <i class="fa-solid fa-cart-shopping fa-lg"></i>
+            </button>
+          </div>
+        </div> -->
+      </div>
+    </section>
+    <!--End of Products -->
+
+    <!-- Cart Section -->
+    <section class="cart-center">
+      <div class="backdrop"></div>
+      <div class="cart">
+        <div class="cart-title">
+          <h3>Your Cart</h3>
+        </div>
+        <div class="cart-content">
+          <!-- Single item -->
+          <div class="cart-item">
+            <div>
+              <img src="/images/pic1.jpg" alt="" class="cart-item-img" />
+            </div>
+            <div class="cart-item-description">
+              <h4>laptop asus</h4>
+              <h5 class="cart-item-price">4500</h5>
+            </div>
+            <div class="cart-item-controls">
+              <i class="fa-solid fa-circle-minus fa-lg"></i>
+              <p>2</p>
+              <i class="fa-solid fa-circle-plus fa-lg"></i>
+              <i class="fas fa-trash-alt fa-lg"></i>
+            </div>
+          </div>
+          <!-- Single item -->
+        </div>
+        <!-- Cart Footer -->
+        <div class="cart-footer">
+          <span class="cart-total-price">Total price: $1000</span>
+          <button class="btn cart-buttons clear-cart">Clear Cart</button>
+          <button class="btn cart-buttons confirm-cart-item">Confirm</button>
+        </div>
+        <!-- Cart Footer -->
+      </div>
+    </section>
+    <!-- End of Cart Section -->
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
