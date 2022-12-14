@@ -5,10 +5,11 @@ const closeModal = document.querySelector(".confirm-cart-item");
 
 const productsDOM = document.querySelector(".products-center");
 
-const cart=[];
+
 
 import { productsData } from "/products.js";
 
+let cart = [];
 // get products
 class Products {
   getProducts() {
@@ -43,20 +44,27 @@ class UI {
     const addToCartBtn = document.querySelectorAll(".product-add-btn");
     const addButtons = [...addToCartBtn];
     addButtons.forEach((btn) => {
-      const id= btn.dataset.id;
-      const isInCart= cart.find((p)=>p.id===id);
-      if(isInCart){
-        btn.disabled=true;
+      const id = btn.dataset.id;
+      const isInCart = cart.find((p) => p.id === id);
+      if (isInCart) {
+        btn.disabled = true;
       }
-      
-      btn.addEventListener("click",(event)=>{
+
+      btn.addEventListener("click", (event) => {
         const btnIcon = document.querySelectorAll(".product-add-btn i");
-        const btnIconArray=[...btnIcon];
-        btnIcon[id-1].classList.remove('fa-cart-shopping');
-        btnIcon[id - 1].classList.toggle('fa-cart-arrow-down');
+        const btnIconArray = [...btnIcon];
+        btnIcon[id - 1].classList.toggle("fa-cart-arrow-down");
+        addButtons[id - 1].classList.toggle("btn-selected");
         btn.disabled=true;
+       //get product from products
+        const addedProducts={...Storage.getProduct(id), quantity: 1};
+        //add products to cart
+        cart= [...cart,addedProducts];
+        //save cart in local storage
+        Storage.saveCart(cart);
+
         console.log(event.target.dataset.id);
-      })
+      });
     });
   }
 }
@@ -65,6 +73,13 @@ class UI {
 class Storage {
   static saveProducts(products) {
     localStorage.setItem("products", JSON.stringify(products));
+  }
+  static getProduct(id) {
+    const _products = JSON.parse(localStorage.getItem("products"));
+    return _products.find((p)=> p.id==id );
+  }
+  static saveCart(cart){
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
 }
 
