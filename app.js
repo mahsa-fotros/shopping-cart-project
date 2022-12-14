@@ -4,7 +4,8 @@ const backDrop = document.querySelector(".backdrop");
 const closeModal = document.querySelector(".confirm-cart-item");
 
 const productsDOM = document.querySelector(".products-center");
-
+const cartItems= document.querySelector(".cart-items");
+const cartTotal=document.querySelector(".cart-total-price");
 
 
 import { productsData } from "/products.js";
@@ -63,11 +64,26 @@ class UI {
         //save cart in local storage
         Storage.saveCart(cart);
 
+        //set cart values
+        this.setCartValue(cart);
+
+
         console.log(event.target.dataset.id);
       });
     });
   }
-}
+  setCartValue(cart){
+    let cartItemsCount=0;
+    const totalPrice= cart.reduce((acc,curr)=> {
+      cartItemsCount += curr.quantity;
+      return curr.quantity * curr.price + acc;}, 0);
+      cartTotal.innerText= `Total price: $${parseFloat(totalPrice).toFixed(2)}`;
+      cartItems.innerText= cartItemsCount;
+  
+    }
+  }
+
+
 
 // Storage
 class Storage {
