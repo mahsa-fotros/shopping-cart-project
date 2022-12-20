@@ -231,7 +231,7 @@ body {
   margin-bottom: 2rem;
 }
 .cart-total-price{
-   /* display: inline-block; */
+   display: inline-block;
    margin-right: 3rem;
 }
 .cart-buttons{
