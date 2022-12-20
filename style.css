@@ -233,6 +233,7 @@ body {
 .cart-total-price{
    display: inline-block;
    margin-right: 3rem;
+   margin-bottom: 0.8rem;
 }
 .cart-buttons{
   border-radius: 12px;
