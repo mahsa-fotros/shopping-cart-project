@@ -12,8 +12,8 @@ const clearCartBtn = document.querySelector(".clear-cart");
 import { productsData } from "/products.js";
 
 let cart = [];
-let buttonsDOM=[];
-let buttonIconDOM=[];
+let buttonsDOM = [];
+let buttonIconDOM = [];
 // get products
 class Products {
   getProducts() {
@@ -47,9 +47,9 @@ class UI {
 
   getAddToCartBtn() {
     const addToCartBtns = [...document.querySelectorAll(".product-add-btn")];
-    buttonsDOM=addToCartBtns;
+    buttonsDOM = addToCartBtns;
     const btnIcon = [...document.querySelectorAll(".product-add-btn i")];
-    buttonIconDOM=btnIcon;
+    buttonIconDOM = btnIcon;
     addToCartBtns.forEach((btn) => {
       const id = btn.dataset.id;
       const isInCart = cart.find((p) => p.id == id);
@@ -123,12 +123,49 @@ class UI {
     clearCartBtn.addEventListener("click", () => {
       this.clearCart();
     });
-    
+    cartContent.addEventListener("click", (event) => {
+      if (event.target.classList.contains("fa-circle-minus")) {
+        const subQuantity = event.target;
+        const id = subQuantity.dataset.id;
+        const subItem = cart.find((cItem) => cItem.id == id);
+        if (subItem.quantity === 1) {
+          this.removeItem(id);
+          cartContent.removeChild(subQuantity.parentElement.parentElement);
+          if (cartContent.children.length === 0) {
+            closeModalFunction();
+          }
+          return;
+        }
+
+        subItem.quantity--;
+        this.setCartValue(cart);
+        Storage.saveCart(cart);
+        subQuantity.nextElementSibling.innerText = subItem.quantity;
+      } else if (event.target.classList.contains("fa-circle-plus")) {
+        const addQuantity = event.target;
+        const id = addQuantity.dataset.id;
+        const addItem = cart.find((cItem) => cItem.id == id);
+        addItem.quantity++;
+        this.setCartValue(cart);
+        Storage.saveCart(cart);
+        addQuantity.previousElementSibling.innerText = addItem.quantity;
+      } else if (event.target.classList.contains("fa-trash-alt")) {
+        const deletedItem = event.target;
+        const id = deletedItem.dataset.id;
+        cartContent.removeChild(deletedItem.parentElement.parentElement);
+        this.removeItem(id);
+        this.setCartValue(cart);
+        Storage.saveCart(cart);
+        if (cartContent.children.length === 0) {
+          closeModalFunction();
+        }
+      }
+    });
   }
   clearCart() {
     cart.forEach((item) => this.removeItem(item.id));
 
-    while(cartContent.children.length){
+    while (cartContent.children.length) {
       cartContent.removeChild(cartContent.children[0]);
     }
     closeModalFunction();
@@ -137,13 +174,15 @@ class UI {
     cart = cart.filter((cItem) => cItem.id != id);
     this.setCartValue(cart);
     Storage.saveCart(cart);
-    const button=this.getSingleButton(id);
-    button.disabled=false;
+    const button = this.getSingleButton(id);
+    button.disabled = false;
     button.classList.remove("btn-selected");
-    buttonIconDOM.find((i)=>i.dataset.id==id).classList.remove("fa-cart-arrow-down");
+    buttonIconDOM
+      .find((i) => i.dataset.id == id)
+      .classList.remove("fa-cart-arrow-down");
   }
-  getSingleButton(id){
-    return buttonsDOM.find((btn)=>btn.dataset.id==id);
+  getSingleButton(id) {
+    return buttonsDOM.find((btn) => btn.dataset.id == id);
   }
 }
 
